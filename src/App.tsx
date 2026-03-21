@@ -31,7 +31,7 @@ const ProblemItem = lazy(() => import('./components/ProblemItem').then(m => ({ d
 const BonusCard = lazy(() => import('./components/BonusCard').then(m => ({ default: m.BonusCard })));
 const TestimonialCard = lazy(() => import('./components/TestimonialCard').then(m => ({ default: m.TestimonialCard })));
 const VSLPlayer = lazy(() => import('./components/VSLPlayer').then(m => ({ default: m.VSLPlayer })));
-
+const MaterialsShowcase = lazy(() => import('./components/MaterialsShowcase').then(m => ({ default: m.MaterialsShowcase })));
 
 const COLORS = {
   orange: '#FF5A1F',
@@ -198,11 +198,7 @@ export default function App() {
         <div className="absolute inset-0 -z-10 bg-slate-50" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
+          <div>
             <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-4 py-1 rounded-full text-sm font-bold mb-6 border border-orange-100">
               <Zap className="w-4 h-4 fill-current" />
               ACESSO IMEDIATO AO MATERIAL
@@ -247,22 +243,7 @@ export default function App() {
               </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ 
-                opacity: 1, 
-                scale: [1, 1.03, 1] 
-              }}
-              transition={{ 
-                opacity: { delay: 0.4, duration: 0.8 },
-                scale: { 
-                  duration: 3, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }
-              }}
-              className="mt-8 max-w-[180px] mx-auto relative group"
-            >
+            <div className="mt-8 max-w-[180px] mx-auto relative group">
               {/* Soft orange glow behind the mockup */}
               <div className="absolute inset-0 bg-orange-400/20 rounded-full blur-[80px] -z-10 transform scale-110" />
               
@@ -276,7 +257,7 @@ export default function App() {
                 fetchPriority="high"
                 loading="eager"
               />
-            </motion.div>
+            </div>
 
             {/* Minimalist Info Cards */}
             <div className="mt-12 grid grid-cols-2 gap-4 max-w-sm mx-auto">
@@ -295,114 +276,68 @@ export default function App() {
                 <p className="text-[10px] text-slate-600 leading-tight">Formato A4 otimizado para impressão</p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </header>
 
       {/* Benefits Section */}
-      <section className="py-24 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle>Por que este é o material que você precisa?</SectionTitle>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <BenefitCard 
-              icon={Clock}
-              title="Economia de Tempo"
-              description="Nunca mais perca horas no Pinterest procurando atividades que talvez não funcionem."
-            />
-            <BenefitCard 
-              icon={Users}
-              title="Turma Engajada"
-              description="Transforme a bagunça em aprendizado com dinâmicas que capturam a atenção."
-            />
-            <BenefitCard 
-              icon={Smile}
-              title="Menos Estresse"
-              description="Tenha sempre uma 'carta na manga' para momentos de agitação ou transição."
-            />
-            <BenefitCard 
-              icon={Zap}
-              title="Sem Materiais Caros"
-              description="90% das dinâmicas usam apenas o corpo, voz ou materiais simples que você já tem."
-            />
+      <Suspense fallback={<div className="py-24 text-center">Carregando benefícios...</div>}>
+        <section className="py-24 bg-slate-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <SectionTitle>Por que este é o material que você precisa?</SectionTitle>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <BenefitCard 
+                icon={Clock}
+                title="Economia de Tempo"
+                description="Nunca mais perca horas no Pinterest procurando atividades que talvez não funcionem."
+              />
+              <BenefitCard 
+                icon={Users}
+                title="Turma Engajada"
+                description="Transforme a bagunça em aprendizado com dinâmicas que capturam a atenção."
+              />
+              <BenefitCard 
+                icon={Smile}
+                title="Menos Estresse"
+                description="Tenha sempre uma 'carta na manga' para momentos de agitação ou transição."
+              />
+              <BenefitCard 
+                icon={Zap}
+                title="Sem Materiais Caros"
+                description="90% das dinâmicas usam apenas o corpo, voz ou materiais simples que você já tem."
+              />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Suspense>
 
       {/* Materials Showcase Section */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionTitle>Alguns materiais que você irá receber</SectionTitle>
-        </div>
-          
-        <div className="relative mt-8">
-          {/* Gradient masks for smooth fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-          
-          <motion.div 
-            className="flex gap-6 w-max py-8 px-6 will-change-transform"
-            animate={{ x: ["0%", "-50%"] }}
-              transition={{
-                x: {
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 40,
-                  ease: "linear",
-                },
-              }}
-            >
-              {[
-                "https://i.imgur.com/JQOal4s.png",
-                "https://i.imgur.com/A3r6wX0.png",
-                "https://i.imgur.com/yM5I7LT.png",
-                "https://i.imgur.com/xTF8pTf.png",
-                "https://i.imgur.com/1s4lj4w.png",
-                "https://i.imgur.com/xD4B8M9.png",
-                "https://i.imgur.com/HXwtksq.png",
-                "https://i.imgur.com/JQOal4s.png",
-                "https://i.imgur.com/A3r6wX0.png",
-                "https://i.imgur.com/yM5I7LT.png",
-                "https://i.imgur.com/xTF8pTf.png",
-                "https://i.imgur.com/1s4lj4w.png",
-                "https://i.imgur.com/xD4B8M9.png",
-                "https://i.imgur.com/HXwtksq.png",
-              ].map((src, index) => (
-                <div key={index} className="w-64 md:w-80 aspect-[3/4] bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 flex-shrink-0 group hover:scale-105 transition-transform duration-500">
-                  <img 
-                    src={src} 
-                    alt={`Material ${index}`} 
-                    className="w-full h-full object-contain p-4"
-                    referrerPolicy="no-referrer"
-                    loading="lazy"
-                    width="320"
-                    height="426"
-                  />
-                </div>
-              ))}
-            </motion.div>
-          </div>
-      </section>
+      <Suspense fallback={<div className="py-24 text-center">Carregando materiais...</div>}>
+        <MaterialsShowcase />
+      </Suspense>
 
       {/* Bonuses Section */}
-      <section className="py-24 bg-orange-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-orange-700 font-bold tracking-widest uppercase text-sm">Presentes Exclusivos</span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mt-4">
-              Leve Estes 6 Bônus <span className="text-[#FF5A1F]">Totalmente Grátis</span>
-            </h2>
-          </div>
+      <Suspense fallback={<div className="py-24 text-center">Carregando bônus...</div>}>
+        <section className="py-24 bg-orange-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <span className="text-orange-700 font-bold tracking-widest uppercase text-sm">Presentes Exclusivos</span>
+              <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 mt-4">
+                Leve Estes 6 Bônus <span className="text-[#FF5A1F]">Totalmente Grátis</span>
+              </h2>
+            </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <BonusCard number={1} title="+100 Ideias Criativas" originalPrice="R$ 47,00" image="https://i.imgur.com/i5VfQO8.png" />
-            <BonusCard number={2} title="+80 Dinâmicas sem Material" originalPrice="R$ 39,00" image="https://i.imgur.com/soE8VT9.png" />
-            <BonusCard number={3} title="+30 Rotinas Prontas" originalPrice="R$ 29,00" image="https://i.imgur.com/2gucGh7.png" />
-            <BonusCard number={4} title="+25 Atividades para Acalmar" originalPrice="R$ 35,00" image="https://i.imgur.com/qnjelbC.png" />
-            <BonusCard number={5} title="Guia Controle de Turma" originalPrice="R$ 49,00" image="https://i.imgur.com/rY66jQ6.png" />
-            <BonusCard number={6} title="Plano Semanal Pronto" originalPrice="R$ 57,00" image="https://i.imgur.com/1oqQ1A2.png" />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <BonusCard number={1} title="+100 Ideias Criativas" originalPrice="R$ 47,00" image="https://i.imgur.com/i5VfQO8.png" />
+              <BonusCard number={2} title="+80 Dinâmicas sem Material" originalPrice="R$ 39,00" image="https://i.imgur.com/soE8VT9.png" />
+              <BonusCard number={3} title="+30 Rotinas Prontas" originalPrice="R$ 29,00" image="https://i.imgur.com/2gucGh7.png" />
+              <BonusCard number={4} title="+25 Atividades para Acalmar" originalPrice="R$ 35,00" image="https://i.imgur.com/qnjelbC.png" />
+              <BonusCard number={5} title="Guia Controle de Turma" originalPrice="R$ 49,00" image="https://i.imgur.com/rY66jQ6.png" />
+              <BonusCard number={6} title="Plano Semanal Pronto" originalPrice="R$ 57,00" image="https://i.imgur.com/1oqQ1A2.png" />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Suspense>
 
       <Suspense fallback={<div className="py-24 text-center">Carregando planos...</div>}>
         <section id="planos" className="py-24">
