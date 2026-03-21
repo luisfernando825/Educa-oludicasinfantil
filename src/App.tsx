@@ -34,7 +34,7 @@ import { lazy, Suspense } from 'react';
 const BenefitCard = lazy(() => import('./components/BenefitCard').then(m => ({ default: m.BenefitCard })));
 const ProblemItem = lazy(() => import('./components/ProblemItem').then(m => ({ default: m.ProblemItem })));
 const BonusCard = lazy(() => import('./components/BonusCard').then(m => ({ default: m.BonusCard })));
-const TestimonialCard = lazy(() => import('./components/TestimonialCard').then(m => ({ default: m.TestimonialCard })));
+const TestimonialCarousel = lazy(() => import('./components/TestimonialCarousel').then(m => ({ default: m.TestimonialCarousel })));
 const MaterialsShowcase = lazy(() => import('./components/MaterialsShowcase').then(m => ({ default: m.MaterialsShowcase })));
 
 const COLORS = {
@@ -81,7 +81,7 @@ export default function App() {
               </div>
 
               {/* Close Button */}
-              <a 
+              <div 
                 role="button"
                 tabIndex={0}
                 onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
@@ -90,7 +90,7 @@ export default function App() {
                 aria-label="Fechar"
               >
                 <X className="w-6 h-6" />
-              </a>
+              </div>
               
               <div className="p-8 md:p-10 text-center">
                 <p className="text-blue-700 font-bold text-sm mb-2 flex items-center justify-center gap-2">
@@ -155,7 +155,7 @@ export default function App() {
                   Entrega via WhatsApp
                 </p>
                 
-                <a 
+                <div 
                   role="button"
                   tabIndex={0}
                   onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
@@ -163,7 +163,7 @@ export default function App() {
                   className="text-slate-600 text-xs font-bold hover:text-slate-800 transition-colors underline decoration-2 underline-offset-4 cursor-pointer"
                 >
                   Não, obrigado. Quero apenas o plano simples.
-                </a>
+                </div>
               </div>
             </div>
           </div>
@@ -198,7 +198,7 @@ export default function App() {
             </p>
             
             <div className="flex flex-col items-center gap-3 mb-8 px-4">
-              <a 
+              <div 
                 role="button"
                 tabIndex={0}
                 onClick={(e) => { e.stopPropagation(); scrollToPlans(); }}
@@ -207,7 +207,7 @@ export default function App() {
               >
                 <span className="relative z-10">QUERO ACESSAR AGORA</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </div>
               <p className="text-xs text-slate-500 font-bold flex items-center gap-1">
                 <Clock className="w-3 h-3" />
                 ACESSO LIBERADO IMEDIATAMENTE
@@ -306,12 +306,12 @@ export default function App() {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <BonusCard number={1} title="+100 Ideias Criativas" originalPrice="R$ 47,00" image="https://i.imgur.com/i5VfQO8.png" />
-              <BonusCard number={2} title="+80 Dinâmicas sem Material" originalPrice="R$ 39,00" image="https://i.imgur.com/soE8VT9.png" />
-              <BonusCard number={3} title="+30 Rotinas Prontas" originalPrice="R$ 29,00" image="https://i.imgur.com/2gucGh7.png" />
-              <BonusCard number={4} title="+25 Atividades para Acalmar" originalPrice="R$ 35,00" image="https://i.imgur.com/qnjelbC.png" />
-              <BonusCard number={5} title="Guia Controle de Turma" originalPrice="R$ 49,00" image="https://i.imgur.com/rY66jQ6.png" />
-              <BonusCard number={6} title="Plano Semanal Pronto" originalPrice="R$ 57,00" image="https://i.imgur.com/1oqQ1A2.png" />
+              <BonusCard number={1} title="+100 Ideias Criativas" originalPrice="R$ 47,00" image="https://i.imgur.com/i5VfQO8.webp" />
+              <BonusCard number={2} title="+80 Dinâmicas sem Material" originalPrice="R$ 39,00" image="https://i.imgur.com/soE8VT9.webp" />
+              <BonusCard number={3} title="+30 Rotinas Prontas" originalPrice="R$ 29,00" image="https://i.imgur.com/2gucGh7.webp" />
+              <BonusCard number={4} title="+25 Atividades para Acalmar" originalPrice="R$ 35,00" image="https://i.imgur.com/qnjelbC.webp" />
+              <BonusCard number={5} title="Guia Controle de Turma" originalPrice="R$ 49,00" image="https://i.imgur.com/rY66jQ6.webp" />
+              <BonusCard number={6} title="Plano Semanal Pronto" originalPrice="R$ 57,00" image="https://i.imgur.com/1oqQ1A2.webp" />
             </div>
           </div>
         </section>
@@ -335,7 +335,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex justify-center items-center max-w-lg mx-auto">
+            <div className="flex flex-col justify-center items-center max-w-lg mx-auto">
               {/* Premium Plan (Featured - Redesigned) */}
               <div className="bg-white p-1 rounded-[2.5rem] border-[6px] border-[#FF5A1F] relative z-20 flex flex-col h-full shadow-xl w-full">
                 {/* Header Badge */}
@@ -348,12 +348,15 @@ export default function App() {
                 <div className="p-8 flex flex-col h-full">
                   <div className="text-center mb-6">
                     <h3 className="text-3xl font-black text-blue-700 mb-4">PLANO COMPLETO</h3>
-                    <div className="inline-block bg-blue-50 text-blue-700 px-6 py-1 rounded-lg text-sm font-black tracking-widest uppercase mb-6">
+                    <div className="inline-block bg-blue-50 text-blue-700 px-6 py-1 rounded-lg text-sm font-black tracking-widest uppercase mb-4">
                       HOJE POR APENAS
                     </div>
-                    <div className="flex items-start justify-center gap-1">
-                      <span className="text-xl font-bold text-blue-700 mt-2">R$</span>
-                      <span className="text-7xl font-black text-blue-700 tracking-tighter">12,90</span>
+                    <div className="flex flex-col items-center justify-center">
+                      <span className="text-slate-400 font-bold text-xl line-through decoration-red-500 decoration-2 mb-1">De R$ 67,00</span>
+                      <div className="flex items-start justify-center gap-1">
+                        <span className="text-xl font-bold text-blue-700 mt-2">R$</span>
+                        <span className="text-7xl font-black text-blue-700 tracking-tighter">12,90</span>
+                      </div>
                     </div>
                   </div>
 
@@ -400,12 +403,31 @@ export default function App() {
 
                   <a 
                     href="https://pay.wiapy.com/wVVy1eaE8Q"
-                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-xl shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
+                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-lg shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group mb-4 relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
                     <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
-                    <span className="text-2xl relative z-10 animate-bounce-slow">🔥</span>
+                    <span className="text-xl relative z-10 animate-bounce-slow">🔥</span>
                   </a>
+
+                  {/* Progress Bar */}
+                  <div className="w-full mb-6 px-1">
+                    <div className="flex justify-between items-center text-xs font-bold text-slate-700 mb-1.5">
+                      <span className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                        Vagas completadas
+                      </span>
+                      <span className="text-red-600 font-black">78%</span>
+                    </div>
+                    <div className="w-full bg-slate-100 rounded-full h-2.5 border border-slate-200 overflow-hidden">
+                      <div 
+                        className="bg-gradient-to-r from-red-500 to-red-400 h-full rounded-full relative" 
+                        style={{ width: '78%' }}
+                      >
+                        <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                      </div>
+                    </div>
+                  </div>
 
                   <p className="text-center text-slate-600 text-sm font-bold flex items-center justify-center gap-2 mb-6">
                     <Zap className="w-4 h-4 text-orange-600" />
@@ -413,6 +435,10 @@ export default function App() {
                   </p>
                 </div>
               </div>
+              
+              <p className="mt-6 text-slate-400 text-xs font-medium tracking-wide text-center">
+                Os R$ 12,90 são apenas para cobrir custos de servidor
+              </p>
             </div>
           </div>
         </section>
@@ -423,26 +449,7 @@ export default function App() {
         <section className="py-24 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionTitle>Quem usa, aprova!</SectionTitle>
-            <div className="grid md:grid-cols-3 gap-8">
-              <TestimonialCard 
-                name="Ana Paula"
-                role="Professora de Ed. Infantil"
-                text="Minha sala era um caos antes desse material. As atividades de transição salvaram meus dias. Agora as crianças engajam de verdade!"
-                image="https://picsum.photos/seed/teacher1/100/100"
-              />
-              <TestimonialCard 
-                name="Mariana Silva"
-                role="Mãe e Educadora"
-                text="O material é riquíssimo e muito fácil de aplicar. Não precisa de nada caro, só criatividade e o guia na mão. Recomendo muito!"
-                image="https://picsum.photos/seed/teacher2/100/100"
-              />
-              <TestimonialCard 
-                name="Ricardo Gomes"
-                role="Coordenador Pedagógico"
-                text="Implementamos o kit em toda a escola e o feedback das professoras foi imediato. Menos estresse e mais aprendizado lúdico."
-                image="https://picsum.photos/seed/teacher3/100/100"
-              />
-            </div>
+            <TestimonialCarousel />
           </div>
         </section>
       </Suspense>
@@ -458,7 +465,7 @@ export default function App() {
             <div className="bg-white rounded-[4rem] p-10 md:p-20 border border-slate-100 relative z-10 text-center max-w-4xl mx-auto shadow-[0_32px_64px_-15px_rgba(255,90,31,0.25)]">
               <div className="flex justify-center mb-8">
                 <img 
-                  src="https://i.imgur.com/Buwole5.png" 
+                  src="https://i.imgur.com/Buwole5.webp" 
                   alt="Selo de Garantia 7 Dias" 
                   className="w-32 md:w-40 h-auto drop-shadow-xl"
                   referrerPolicy="no-referrer"

@@ -10,8 +10,8 @@ export const VSLPlayer = memo(() => {
   if (!isLoaded) {
     return (
       <div 
-        className="relative w-full max-w-md md:max-w-2xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16] group cursor-pointer flex items-center justify-center"
-        onClick={() => setIsLoaded(true)}
+        className="relative w-full max-w-sm md:max-w-xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16] group cursor-pointer flex items-center justify-center"
+        onClick={(e) => { e.stopPropagation(); setIsLoaded(true); }}
       >
         {/* Thumbnail WEBP - Substitua pelo link real da sua thumbnail */}
         <img 
@@ -40,7 +40,7 @@ export const VSLPlayer = memo(() => {
 
   return (
     <Suspense fallback={
-      <div className="relative w-full max-w-md md:max-w-2xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16] flex items-center justify-center">
+      <div className="relative w-full max-w-sm md:max-w-xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16] flex items-center justify-center">
         <div className="w-10 h-10 border-4 border-[#FF5A1F] border-t-transparent rounded-full animate-spin"></div>
       </div>
     }>

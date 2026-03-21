@@ -1,20 +1,20 @@
 import { memo } from 'react';
 
 const materials = [
-  "https://i.imgur.com/JQOal4s.png",
-  "https://i.imgur.com/A3r6wX0.png",
-  "https://i.imgur.com/yM5I7LT.png",
-  "https://i.imgur.com/xTF8pTf.png",
-  "https://i.imgur.com/1s4lj4w.png",
-  "https://i.imgur.com/xD4B8M9.png",
-  "https://i.imgur.com/HXwtksq.png",
-  "https://i.imgur.com/JQOal4s.png",
-  "https://i.imgur.com/A3r6wX0.png",
-  "https://i.imgur.com/yM5I7LT.png",
-  "https://i.imgur.com/xTF8pTf.png",
-  "https://i.imgur.com/1s4lj4w.png",
-  "https://i.imgur.com/xD4B8M9.png",
-  "https://i.imgur.com/HXwtksq.png",
+  "https://i.imgur.com/JQOal4s.webp",
+  "https://i.imgur.com/A3r6wX0.webp",
+  "https://i.imgur.com/yM5I7LT.webp",
+  "https://i.imgur.com/xTF8pTf.webp",
+  "https://i.imgur.com/1s4lj4w.webp",
+  "https://i.imgur.com/xD4B8M9.webp",
+  "https://i.imgur.com/HXwtksq.webp",
+  "https://i.imgur.com/JQOal4s.webp",
+  "https://i.imgur.com/A3r6wX0.webp",
+  "https://i.imgur.com/yM5I7LT.webp",
+  "https://i.imgur.com/xTF8pTf.webp",
+  "https://i.imgur.com/1s4lj4w.webp",
+  "https://i.imgur.com/xD4B8M9.webp",
+  "https://i.imgur.com/HXwtksq.webp",
 ];
 
 export const MaterialsShowcase = memo(() => (
