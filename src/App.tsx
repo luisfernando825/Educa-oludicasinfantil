@@ -42,7 +42,7 @@ SectionTitle.displayName = 'SectionTitle';
 const BenefitCard = memo(({ icon: Icon, title, description }: { icon: any; title: string; description: string }) => (
   <motion.div 
     whileHover={{ y: -5 }}
-    className="bg-white p-8 rounded-2xl border border-slate-100 flex flex-col items-center text-center shadow-[0_10px_30px_-10px_rgba(255,90,31,0.3)] will-change-transform"
+    className="bg-white p-8 rounded-2xl border border-slate-100 flex flex-col items-center text-center shadow-[0_10px_30px_-10px_rgba(255,90,31,0.3)]"
   >
     <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mb-6">
       <Icon className="w-8 h-8 text-[#FF5A1F]" />
@@ -123,20 +123,12 @@ const TestimonialCard = memo(({ name, role, text, image }: { name: string; role:
 TestimonialCard.displayName = 'TestimonialCard';
 
 const VSLPlayer = memo(() => (
-  <div className="relative w-full max-w-md md:max-w-2xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16] group will-change-transform">
-    {/* Placeholder for 4G loading with blurred poster */}
-    <div className="absolute inset-0 z-0">
-      <img 
-        src="https://i.imgur.com/YOAt61G.png" 
-        alt="Carregando..." 
-        className="w-full h-full object-cover blur-md md:blur-xl opacity-30 scale-110"
-        referrerPolicy="no-referrer"
-      />
-      <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
-          <p className="text-white text-sm font-black tracking-widest animate-pulse uppercase">Carregando VSL...</p>
-        </div>
+  <div className="relative w-full max-w-md md:max-w-2xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16] group">
+    {/* Placeholder for fast loading */}
+    <div className="absolute inset-0 flex items-center justify-center bg-slate-900 z-0">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+        <p className="text-white/50 text-sm font-bold animate-pulse">Carregando...</p>
       </div>
     </div>
     <div className="relative z-10" dangerouslySetInnerHTML={{
@@ -408,7 +400,7 @@ export default function App() {
       </header>
 
       {/* Benefits Section */}
-      <section className="py-24 bg-slate-50 content-visibility-auto contain-intrinsic-size-[1000px]">
+      <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle>Por que este é o material que você precisa?</SectionTitle>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -437,7 +429,7 @@ export default function App() {
       </section>
 
       {/* Materials Showcase Section */}
-      <section className="py-24 bg-white overflow-hidden content-visibility-auto contain-intrinsic-size-[800px]">
+      <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle>Alguns materiais que você irá receber</SectionTitle>
         </div>
@@ -492,7 +484,7 @@ export default function App() {
       </section>
 
       {/* Bonuses Section */}
-      <section className="py-24 bg-orange-50 content-visibility-auto contain-intrinsic-size-[1200px]">
+      <section className="py-24 bg-orange-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="text-orange-700 font-bold tracking-widest uppercase text-sm">Presentes Exclusivos</span>
@@ -513,7 +505,7 @@ export default function App() {
       </section>
 
       {/* Plans Section */}
-      <section id="planos" className="py-24 content-visibility-auto contain-intrinsic-size-[1000px]">
+      <section id="planos" className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle>Escolha o Melhor Plano para Você</SectionTitle>
           
@@ -628,7 +620,7 @@ export default function App() {
       </section>
 
       {/* Social Proof Section */}
-      <section className="py-24 bg-slate-50 content-visibility-auto contain-intrinsic-size-[800px]">
+      <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle>Quem usa, aprova!</SectionTitle>
           <div className="grid md:grid-cols-3 gap-8">
@@ -655,7 +647,7 @@ export default function App() {
       </section>
 
       {/* Guarantee Section */}
-      <section className="py-24 bg-white overflow-hidden content-visibility-auto contain-intrinsic-size-[600px]">
+      <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-6xl mx-auto px-4">
           <div className="relative">
             {/* Background Decorative Elements */}
@@ -686,7 +678,7 @@ export default function App() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-[#0F172A] text-white text-center content-visibility-auto contain-intrinsic-size-[500px]">
+      <section className="py-24 bg-[#0F172A] text-white text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-8">
             Transforme sua sala de aula ainda hoje
@@ -723,9 +715,6 @@ export default function App() {
         }
         .animate-shimmer {
           animation: shimmer 2.5s infinite;
-        }
-        .content-visibility-auto {
-          content-visibility: auto;
         }
         @keyframes pulse-slow {
           0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4); }
