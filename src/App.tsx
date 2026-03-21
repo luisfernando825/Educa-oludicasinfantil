@@ -32,16 +32,17 @@ const COLORS = {
   white: '#FFFFFF',
 };
 
-const SectionTitle = ({ children, light = false }: { children: ReactNode; light?: boolean }) => (
+const SectionTitle = memo(({ children, light = false }: { children: ReactNode; light?: boolean }) => (
   <h2 className={`text-3xl md:text-4xl font-bold text-center mb-12 ${light ? 'text-white' : 'text-slate-900'}`}>
     {children}
   </h2>
-);
+));
+SectionTitle.displayName = 'SectionTitle';
 
 const BenefitCard = memo(({ icon: Icon, title, description }: { icon: any; title: string; description: string }) => (
   <motion.div 
     whileHover={{ y: -5 }}
-    className="bg-white p-8 rounded-2xl border border-slate-100 flex flex-col items-center text-center shadow-[0_10px_30px_-10px_rgba(255,90,31,0.3)]"
+    className="bg-white p-8 rounded-2xl border border-slate-100 flex flex-col items-center text-center shadow-[0_10px_30px_-10px_rgba(255,90,31,0.3)] will-change-transform"
   >
     <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mb-6">
       <Icon className="w-8 h-8 text-[#FF5A1F]" />
@@ -52,7 +53,7 @@ const BenefitCard = memo(({ icon: Icon, title, description }: { icon: any; title
 ));
 BenefitCard.displayName = 'BenefitCard';
 
-const ProblemItem = ({ title, description }: { title: string; description: string }) => (
+const ProblemItem = memo(({ title, description }: { title: string; description: string }) => (
   <div className="flex gap-4 items-start">
     <div className="mt-1">
       <AlertCircle className="w-6 h-6 text-red-500" />
@@ -62,7 +63,8 @@ const ProblemItem = ({ title, description }: { title: string; description: strin
       <p className="text-slate-600">{description}</p>
     </div>
   </div>
-);
+));
+ProblemItem.displayName = 'ProblemItem';
 
 const BonusCard = memo(({ number, title, originalPrice, image }: { number: number; title: string; originalPrice: string; image: string }) => (
   <div className="bg-white p-6 rounded-xl border-2 border-dashed border-orange-200 relative overflow-hidden shadow-[0_10px_25px_-10px_rgba(255,90,31,0.2)] flex flex-col items-center text-center group">
@@ -73,7 +75,7 @@ const BonusCard = memo(({ number, title, originalPrice, image }: { number: numbe
     <div className="w-full aspect-square mb-4 flex items-center justify-center bg-slate-50 rounded-lg overflow-hidden relative">
       <img 
         src={image} 
-        alt={title} 
+        alt={`Mockup do Kit Educar Lúdico - ${title}`} 
         className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
         referrerPolicy="no-referrer"
         loading="lazy"
@@ -86,7 +88,7 @@ const BonusCard = memo(({ number, title, originalPrice, image }: { number: numbe
     <h3 className="text-lg font-bold text-slate-900 mb-4 h-14 flex items-center justify-center leading-tight">{title}</h3>
     
     <div className="mt-auto w-full pt-4 border-t border-slate-50">
-      <p className="text-slate-500 text-sm line-through decoration-red-600/50">Valor original: {originalPrice}</p>
+      <p className="text-slate-600 text-sm line-through decoration-red-600/50">Valor original: {originalPrice}</p>
       <p className="text-green-600 font-black text-2xl">R$ 0,00</p>
     </div>
   </div>
@@ -102,10 +104,18 @@ const TestimonialCard = memo(({ name, role, text, image }: { name: string; role:
     </div>
     <p className="text-slate-700 italic mb-6">"{text}"</p>
     <div className="flex items-center gap-4">
-      <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover" referrerPolicy="no-referrer" loading="lazy" width="48" height="48" />
+      <img 
+        src={image} 
+        alt={`Foto de ${name}`} 
+        className="w-12 h-12 rounded-full object-cover" 
+        referrerPolicy="no-referrer" 
+        loading="lazy" 
+        width="48" 
+        height="48" 
+      />
       <div>
         <h5 className="font-bold text-slate-900">{name}</h5>
-        <p className="text-sm text-slate-500">{role}</p>
+        <p className="text-sm text-slate-600">{role}</p>
       </div>
     </div>
   </div>
@@ -113,8 +123,23 @@ const TestimonialCard = memo(({ name, role, text, image }: { name: string; role:
 TestimonialCard.displayName = 'TestimonialCard';
 
 const VSLPlayer = memo(() => (
-  <div className="relative w-full max-w-md md:max-w-2xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16]">
-    <div dangerouslySetInnerHTML={{
+  <div className="relative w-full max-w-md md:max-w-2xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16] group will-change-transform">
+    {/* Placeholder for 4G loading with blurred poster */}
+    <div className="absolute inset-0 z-0">
+      <img 
+        src="https://i.imgur.com/YOAt61G.png" 
+        alt="Carregando..." 
+        className="w-full h-full object-cover blur-md md:blur-xl opacity-30 scale-110"
+        referrerPolicy="no-referrer"
+      />
+      <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-white text-sm font-black tracking-widest animate-pulse uppercase">Carregando VSL...</p>
+        </div>
+      </div>
+    </div>
+    <div className="relative z-10" dangerouslySetInnerHTML={{
       __html: `<lt-v2 v="fd06ccd4-50ba-460b-93b0-5f2dad01538d" ar="9:16" p="ph=8&pi=s&sc=0&pc=dd6808"></lt-v2>`
     }} />
   </div>
@@ -129,6 +154,18 @@ export default function App() {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    // Show upsell modal when user tries to leave (exit intent)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0) {
+        setShowUpsellModal(true);
+        window.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+    window.addEventListener('mouseleave', handleMouseLeave);
+    return () => window.removeEventListener('mouseleave', handleMouseLeave);
   }, []);
 
   const formatTime = (seconds: number) => {
@@ -151,7 +188,7 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setShowUpsellModal(false)}
+              onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
               className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
             />
             <motion.div 
@@ -166,13 +203,16 @@ export default function App() {
               </div>
 
               {/* Close Button */}
-              <button 
-                onClick={() => setShowUpsellModal(false)}
-                className="absolute top-4 right-6 text-slate-500 hover:text-slate-700 transition-colors z-10"
+              <a 
+                role="button"
+                tabIndex={0}
+                onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowUpsellModal(false); } }}
+                className="absolute top-4 right-6 text-slate-500 hover:text-slate-700 transition-colors z-10 cursor-pointer"
                 aria-label="Fechar"
               >
                 <X className="w-6 h-6" />
-              </button>
+              </a>
               
               <div className="p-8 md:p-10 text-center">
                 <p className="text-blue-700 font-bold text-sm mb-2 flex items-center justify-center gap-2">
@@ -180,7 +220,7 @@ export default function App() {
                 </p>
                 
                 <h3 className="text-3xl font-black text-blue-700 mb-1">Plano Completo</h3>
-                <p className="text-slate-500 text-[10px] font-black tracking-[0.2em] uppercase mb-4">HOJE POR APENAS</p>
+                <p className="text-slate-600 text-[10px] font-black tracking-[0.2em] uppercase mb-4">HOJE POR APENAS</p>
                 
                 <div className="flex items-start justify-center gap-1 mb-6">
                   <span className="text-xl font-bold text-purple-700 mt-2">R$</span>
@@ -223,25 +263,29 @@ export default function App() {
                   </ul>
                 </div>
 
-                <button 
-                  onClick={() => window.location.href = 'https://pay.wiapy.com/wVVy1eaE8Q'}
-                  className="w-full py-5 rounded-2xl bg-[#1ED760] text-slate-900 font-black text-xl shadow-[0_10px_20px_-5px_rgba(30,215,96,0.5)] hover:bg-[#19C356] transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 mb-4"
+                <a 
+                  href="https://pay.wiapy.com/wVVy1eaE8Q"
+                  className="w-full py-5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-xl shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
                 >
-                  <span>QUERO MEU ACESSO AGORA</span>
-                  <span className="text-2xl">🔥</span>
-                </button>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                  <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
+                  <span className="text-2xl relative z-10 animate-bounce-slow">🔥</span>
+                </a>
                 
                 <p className="text-center text-slate-600 text-xs font-bold mb-6 flex items-center justify-center gap-2">
                   <Zap className="w-3 h-3 text-orange-600" />
                   Entrega via WhatsApp
                 </p>
                 
-                <button 
-                  onClick={() => setShowUpsellModal(false)}
-                  className="text-slate-600 text-xs font-bold hover:text-slate-800 transition-colors underline decoration-2 underline-offset-4"
+                <a 
+                  role="button"
+                  tabIndex={0}
+                  onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowUpsellModal(false); } }}
+                  className="text-slate-600 text-xs font-bold hover:text-slate-800 transition-colors underline decoration-2 underline-offset-4 cursor-pointer"
                 >
                   Não, obrigado. Quero apenas o plano simples.
-                </button>
+                </a>
               </div>
             </motion.div>
           </div>
@@ -255,9 +299,9 @@ export default function App() {
 
       {/* Hero Section */}
       <header className="relative pt-12 pb-24 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-5">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-orange-500 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-5 pointer-events-none">
+          <div className="absolute top-20 left-10 w-64 h-64 bg-orange-500 rounded-full blur-2xl md:blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500 rounded-full blur-2xl md:blur-3xl" />
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -287,20 +331,24 @@ export default function App() {
             </p>
             
             <div className="flex flex-col items-center gap-4 mb-10">
-              <button 
-                onClick={scrollToPlans}
-                className="bg-blue-700 hover:bg-blue-800 text-white text-lg md:text-xl font-black px-8 py-4 rounded-2xl shadow-2xl shadow-blue-900/20 transition-all transform hover:scale-105 flex items-center justify-center gap-3 group w-full sm:w-auto"
+              <a 
+                role="button"
+                tabIndex={0}
+                onClick={(e) => { e.stopPropagation(); scrollToPlans(); }}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToPlans(); } }}
+                className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-lg md:text-xl font-black px-10 py-5 rounded-2xl shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-12px_rgba(37,99,235,0.5)] transition-all transform hover:scale-[1.02] flex items-center justify-center gap-3 group w-full sm:w-auto cursor-pointer relative overflow-hidden"
               >
-                QUERO ACESSAR AGORA
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </button>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                <span className="relative z-10">QUERO ACESSAR AGORA</span>
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10" />
+              </a>
               <p className="text-sm text-slate-600 font-bold flex items-center gap-2">
                 <Clock className="w-4 h-4" />
                 ACESSO LIBERADO IMEDIATAMENTE
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-slate-500 font-medium">
+            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-slate-600 font-medium">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-green-600" />
                 Garantia de 7 dias
@@ -328,12 +376,13 @@ export default function App() {
               
               <img 
                 src="https://i.imgur.com/YOAt61G.png" 
-                alt="Mockup do Kit Educar Lúdico" 
+                alt="Mockup principal do Kit Educar Lúdico" 
                 className="w-full h-auto drop-shadow-[0_25px_25px_rgba(0,0,0,0.15)] relative z-10"
                 referrerPolicy="no-referrer"
                 width="180"
                 height="250"
                 fetchPriority="high"
+                loading="eager"
               />
             </motion.div>
 
@@ -344,14 +393,14 @@ export default function App() {
                   <BookOpen className="w-5 h-5 text-orange-700" />
                 </div>
                 <h4 className="text-sm font-black text-slate-900 leading-tight mb-1">Material completo em PDF</h4>
-                <p className="text-[10px] text-slate-500 leading-tight">Mais de 180 páginas de conteúdo prático</p>
+                <p className="text-[10px] text-slate-600 leading-tight">Mais de 180 páginas de conteúdo prático</p>
               </div>
               <div className="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
                 <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mb-3">
                   <Download className="w-5 h-5 text-orange-700" />
                 </div>
                 <h4 className="text-sm font-black text-slate-900 leading-tight mb-1">Pronto para imprimir</h4>
-                <p className="text-[10px] text-slate-500 leading-tight">Formato A4 otimizado para impressão</p>
+                <p className="text-[10px] text-slate-600 leading-tight">Formato A4 otimizado para impressão</p>
               </div>
             </div>
           </motion.div>
@@ -359,7 +408,7 @@ export default function App() {
       </header>
 
       {/* Benefits Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 content-visibility-auto contain-intrinsic-size-[1000px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle>Por que este é o material que você precisa?</SectionTitle>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -388,7 +437,7 @@ export default function App() {
       </section>
 
       {/* Materials Showcase Section */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-24 bg-white overflow-hidden content-visibility-auto contain-intrinsic-size-[800px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle>Alguns materiais que você irá receber</SectionTitle>
         </div>
@@ -399,7 +448,7 @@ export default function App() {
           <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
           
           <motion.div 
-            className="flex gap-6 w-max py-8 px-6"
+            className="flex gap-6 w-max py-8 px-6 will-change-transform"
             animate={{ x: ["0%", "-50%"] }}
               transition={{
                 x: {
@@ -443,7 +492,7 @@ export default function App() {
       </section>
 
       {/* Bonuses Section */}
-      <section className="py-24 bg-orange-50">
+      <section className="py-24 bg-orange-50 content-visibility-auto contain-intrinsic-size-[1200px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="text-orange-700 font-bold tracking-widest uppercase text-sm">Presentes Exclusivos</span>
@@ -464,7 +513,7 @@ export default function App() {
       </section>
 
       {/* Plans Section */}
-      <section id="planos" className="py-24">
+      <section id="planos" className="py-24 content-visibility-auto contain-intrinsic-size-[1000px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle>Escolha o Melhor Plano para Você</SectionTitle>
           
@@ -559,13 +608,14 @@ export default function App() {
                   </ul>
                 </div>
 
-                <button 
-                  onClick={() => window.location.href = 'https://pay.wiapy.com/wVVy1eaE8Q'}
-                  className="w-full py-5 rounded-2xl bg-[#1ED760] text-slate-900 font-black text-xl shadow-[0_10px_20px_-5px_rgba(30,215,96,0.5)] hover:bg-[#19C356] transition-all transform hover:scale-105 active:scale-95 flex flex-col items-center justify-center gap-1 group mb-4"
+                <a 
+                  href="https://pay.wiapy.com/wVVy1eaE8Q"
+                  className="w-full py-6 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-2xl shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
                 >
-                  <span>QUERO MEU ACESSO AGORA</span>
-                  <span className="text-2xl">🔥</span>
-                </button>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                  <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
+                  <span className="text-3xl relative z-10 animate-bounce-slow">🔥</span>
+                </a>
 
                 <p className="text-center text-slate-600 text-sm font-bold flex items-center justify-center gap-2 mb-6">
                   <Zap className="w-4 h-4 text-orange-600" />
@@ -578,7 +628,7 @@ export default function App() {
       </section>
 
       {/* Social Proof Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50 content-visibility-auto contain-intrinsic-size-[800px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionTitle>Quem usa, aprova!</SectionTitle>
           <div className="grid md:grid-cols-3 gap-8">
@@ -605,12 +655,12 @@ export default function App() {
       </section>
 
       {/* Guarantee Section */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-24 bg-white overflow-hidden content-visibility-auto contain-intrinsic-size-[600px]">
         <div className="max-w-6xl mx-auto px-4">
           <div className="relative">
             {/* Background Decorative Elements */}
-            <div className="absolute -left-20 -top-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
-            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-orange-500/5 rounded-full blur-3xl" />
+            <div className="absolute -left-20 -top-20 w-64 h-64 bg-blue-500/5 rounded-full blur-2xl md:blur-3xl pointer-events-none" />
+            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-orange-500/5 rounded-full blur-2xl md:blur-3xl pointer-events-none" />
 
             <div className="bg-white rounded-[4rem] p-10 md:p-20 border border-slate-100 relative z-10 text-center max-w-4xl mx-auto shadow-[0_32px_64px_-15px_rgba(255,90,31,0.25)]">
               <div className="flex justify-center mb-8">
@@ -636,36 +686,47 @@ export default function App() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-[#0F172A] text-white text-center">
+      <section className="py-24 bg-[#0F172A] text-white text-center content-visibility-auto contain-intrinsic-size-[500px]">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-4xl md:text-5xl font-extrabold mb-8">
             Transforme sua sala de aula ainda hoje
           </h2>
-          <p className="text-xl text-slate-400 mb-12">
+          <p className="text-xl text-slate-300 mb-12">
             Não deixe para amanhã a tranquilidade e o engajamento que você pode ter agora.
           </p>
-          <button 
-            onClick={() => window.location.href = 'https://pay.wiapy.com/wVVy1eaE8Q'}
-            className="bg-blue-600 hover:bg-blue-700 text-white text-xl font-black px-8 py-4 rounded-2xl shadow-2xl shadow-blue-500/20 transition-all transform hover:scale-105 mb-4"
+          <a 
+            href="https://pay.wiapy.com/wVVy1eaE8Q"
+            className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xl font-black px-12 py-6 rounded-2xl shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-12px_rgba(37,99,235,0.5)] transition-all transform hover:scale-[1.02] mb-4 inline-flex items-center justify-center gap-3 group relative overflow-hidden"
           >
-            QUERO MEU ACESSO AGORA
-          </button>
-          <p className="text-slate-400 text-sm font-bold mb-8 flex items-center justify-center gap-2">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+            <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
+            <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10" />
+          </a>
+          <p className="text-slate-300 text-sm font-bold mb-8 flex items-center justify-center gap-2">
             <Zap className="w-4 h-4 text-orange-600" />
             Entrega via WhatsApp
           </p>
-          <p className="mt-8 text-slate-400 text-sm">
+          <p className="mt-8 text-slate-300 text-sm">
             Acesso imediato após a confirmação do pagamento.
           </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-slate-100 text-center text-slate-500 text-sm">
+      <footer className="py-12 border-t border-slate-100 text-center text-slate-600 text-sm">
         <p>&copy; 2026 Kit Educar Lúdico. Todos os direitos reservados.</p>
       </footer>
 
       <style>{`
+        @keyframes shimmer {
+          100% { transform: translateX(100%); }
+        }
+        .animate-shimmer {
+          animation: shimmer 2.5s infinite;
+        }
+        .content-visibility-auto {
+          content-visibility: auto;
+        }
         @keyframes pulse-slow {
           0%, 100% { transform: scale(1); box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4); }
           50% { transform: scale(1.02); box-shadow: 0 20px 35px -5px rgba(59, 130, 246, 0.6); }
