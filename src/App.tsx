@@ -28,11 +28,14 @@ import { TopBar } from './components/TopBar';
 import { PricingCountdown } from './components/PricingCountdown';
 
 import { SectionTitle } from './components/SectionTitle';
-import { BenefitCard } from './components/BenefitCard';
-import { ProblemItem } from './components/ProblemItem';
-import { BonusCard } from './components/BonusCard';
-import { TestimonialCard } from './components/TestimonialCard';
-import { MaterialsShowcase } from './components/MaterialsShowcase';
+
+// Lazy load below-the-fold components
+import { lazy, Suspense } from 'react';
+const BenefitCard = lazy(() => import('./components/BenefitCard').then(m => ({ default: m.BenefitCard })));
+const ProblemItem = lazy(() => import('./components/ProblemItem').then(m => ({ default: m.ProblemItem })));
+const BonusCard = lazy(() => import('./components/BonusCard').then(m => ({ default: m.BonusCard })));
+const TestimonialCard = lazy(() => import('./components/TestimonialCard').then(m => ({ default: m.TestimonialCard })));
+const MaterialsShowcase = lazy(() => import('./components/MaterialsShowcase').then(m => ({ default: m.MaterialsShowcase })));
 
 const COLORS = {
   orange: '#FF5A1F',
@@ -223,13 +226,14 @@ export default function App() {
               <div className="absolute inset-0 bg-orange-100 rounded-full -z-10 transform scale-110" />
               
               <img 
-                src="https://i.imgur.com/YOAt61G.png" 
+                src="https://i.imgur.com/YOAt61G.webp" 
                 alt="Mockup principal do Kit Educar Lúdico" 
                 className="w-full h-auto shadow-xl rounded-lg relative z-10"
                 referrerPolicy="no-referrer"
                 width="180"
                 height="250"
-                loading="lazy"
+                fetchPriority="high"
+                loading="eager"
               />
             </div>
 
@@ -255,7 +259,8 @@ export default function App() {
       </header>
 
       {/* Benefits Section */}
-      <section className="py-24 bg-slate-50">
+      <Suspense fallback={<div className="py-24 text-center">Carregando benefícios...</div>}>
+        <section className="py-24 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionTitle>Por que este é o material que você precisa?</SectionTitle>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -282,12 +287,16 @@ export default function App() {
             </div>
           </div>
         </section>
+      </Suspense>
 
       {/* Materials Showcase Section */}
-      <MaterialsShowcase />
+      <Suspense fallback={<div className="py-24 text-center">Carregando materiais...</div>}>
+        <MaterialsShowcase />
+      </Suspense>
 
       {/* Bonuses Section */}
-      <section className="py-24 bg-orange-50">
+      <Suspense fallback={<div className="py-24 text-center">Carregando bônus...</div>}>
+        <section className="py-24 bg-orange-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <span className="text-orange-700 font-bold tracking-widest uppercase text-sm">Presentes Exclusivos</span>
@@ -306,8 +315,10 @@ export default function App() {
             </div>
           </div>
         </section>
+      </Suspense>
 
-      <section id="planos" className="py-24">
+      <Suspense fallback={<div className="py-24 text-center">Carregando planos...</div>}>
+        <section id="planos" className="py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionTitle>Escolha o Melhor Plano para Você</SectionTitle>
             
@@ -405,9 +416,11 @@ export default function App() {
             </div>
           </div>
         </section>
+      </Suspense>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-slate-50">
+      <Suspense fallback={<div className="py-24 text-center">Carregando depoimentos...</div>}>
+        <section className="py-24 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionTitle>Quem usa, aprova!</SectionTitle>
             <div className="grid md:grid-cols-3 gap-8">
@@ -432,6 +445,7 @@ export default function App() {
             </div>
           </div>
         </section>
+      </Suspense>
 
       {/* Guarantee Section */}
       <section className="py-24 bg-white overflow-hidden">
