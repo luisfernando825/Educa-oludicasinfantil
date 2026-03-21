@@ -16,7 +16,6 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://i.imgur.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="preload" as="image" href="https://i.imgur.com/YOAt61G.png" fetchpriority="high" />
     <script>
       window.pixelId = "69be01d6fad6589b5092a1af";
       var a = document.createElement("script");
@@ -27,7 +26,56 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <style>
+        body { margin: 0; font-family: sans-serif; }
+        .skeleton-topbar { height: 36px; background: #c2410c; }
+        .skeleton-hero {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 2rem 1rem 4rem;
+          background: #f8fafc;
+          min-height: 100vh;
+        }
+        .skeleton-badge {
+          width: 240px;
+          height: 28px;
+          background: #ffedd5;
+          border-radius: 9999px;
+          margin-bottom: 1.5rem;
+        }
+        .skeleton-title {
+          width: 90%;
+          max-width: 600px;
+          height: 80px;
+          background: #e2e8f0;
+          border-radius: 8px;
+          margin-bottom: 1.5rem;
+        }
+        .skeleton-video {
+          width: 100%;
+          max-width: 448px;
+          aspect-ratio: 9/16;
+          background: #0f172a url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+          background-size: cover;
+          border-radius: 2rem;
+          margin-bottom: 2rem;
+          border: 4px solid white;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        @media (min-width: 768px) {
+          .skeleton-video { max-width: 672px; }
+          .skeleton-title { height: 120px; }
+        }
+      </style>
+      <div class="skeleton-topbar"></div>
+      <div class="skeleton-hero">
+        <div class="skeleton-badge"></div>
+        <div class="skeleton-title"></div>
+        <div class="skeleton-video"></div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

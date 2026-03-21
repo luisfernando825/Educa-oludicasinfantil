@@ -12,6 +12,7 @@ export const VSLPlayer = memo(() => {
       <div 
         className="relative w-full max-w-md md:max-w-2xl mx-auto rounded-[2rem] shadow-2xl overflow-hidden mb-8 border-4 border-white bg-slate-900 aspect-[9/16] group cursor-pointer flex items-center justify-center"
         onClick={() => setIsLoaded(true)}
+        style={{ backgroundImage: 'url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)', backgroundSize: 'cover' }}
       >
         {/* Thumbnail Facade - Optimized for LCP */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-800 to-slate-950 flex flex-col items-center justify-center">

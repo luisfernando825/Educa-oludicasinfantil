@@ -229,8 +229,7 @@ export default function App() {
                 referrerPolicy="no-referrer"
                 width="180"
                 height="250"
-                fetchPriority="high"
-                loading="eager"
+                loading="lazy"
               />
             </div>
 
