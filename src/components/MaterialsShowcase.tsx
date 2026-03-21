@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 
 const materials = [
   "https://i.imgur.com/JQOal4s.png",
@@ -30,20 +29,11 @@ export const MaterialsShowcase = memo(() => (
       <div className="absolute left-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-24 md:w-48 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
       
-      <motion.div 
-        className="flex gap-6 w-max py-8 px-6 will-change-transform"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 40,
-            ease: "linear",
-          },
-        }}
+      <div 
+        className="flex gap-6 w-max py-8 px-6 will-change-transform animate-marquee"
       >
         {materials.map((src, index) => (
-          <div key={index} className="w-64 md:w-80 aspect-[3/4] bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100 flex-shrink-0 group hover:scale-105 transition-transform duration-500">
+          <div key={index} className="w-64 md:w-80 aspect-[3/4] bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex-shrink-0">
             <img 
               src={src} 
               alt={`Material ${index}`} 
@@ -55,7 +45,7 @@ export const MaterialsShowcase = memo(() => (
             />
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   </section>
 ));

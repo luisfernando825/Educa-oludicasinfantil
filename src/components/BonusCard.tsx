@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 export const BonusCard = memo(({ number, title, originalPrice, image }: { number: number; title: string; originalPrice: string; image: string }) => (
-  <div className="bg-white p-6 rounded-xl border-2 border-dashed border-orange-200 relative overflow-hidden shadow-[0_10px_25px_-10px_rgba(255,90,31,0.2)] flex flex-col items-center text-center group">
+  <div className="bg-white p-6 rounded-xl border-2 border-dashed border-orange-200 relative overflow-hidden shadow-md flex flex-col items-center text-center">
     <div className="absolute top-0 right-0 bg-green-700 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider z-10">
       Grátis Hoje
     </div>
@@ -10,7 +10,7 @@ export const BonusCard = memo(({ number, title, originalPrice, image }: { number
       <img 
         src={image} 
         alt={`Mockup do Kit Educar Lúdico - ${title}`} 
-        className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
+        className="w-full h-full object-contain"
         referrerPolicy="no-referrer"
         loading="lazy"
         width="300"

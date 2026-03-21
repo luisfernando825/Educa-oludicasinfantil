@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, memo, lazy, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   CheckCircle2, 
   Clock, 
@@ -23,15 +23,16 @@ import {
   X,
   Check
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { VSLPlayer } from './components/VSLPlayer';
+import { TopBar } from './components/TopBar';
+import { PricingCountdown } from './components/PricingCountdown';
 
-const SectionTitle = lazy(() => import('./components/SectionTitle').then(m => ({ default: m.SectionTitle })));
-const BenefitCard = lazy(() => import('./components/BenefitCard').then(m => ({ default: m.BenefitCard })));
-const ProblemItem = lazy(() => import('./components/ProblemItem').then(m => ({ default: m.ProblemItem })));
-const BonusCard = lazy(() => import('./components/BonusCard').then(m => ({ default: m.BonusCard })));
-const TestimonialCard = lazy(() => import('./components/TestimonialCard').then(m => ({ default: m.TestimonialCard })));
-const VSLPlayer = lazy(() => import('./components/VSLPlayer').then(m => ({ default: m.VSLPlayer })));
-const MaterialsShowcase = lazy(() => import('./components/MaterialsShowcase').then(m => ({ default: m.MaterialsShowcase })));
+import { SectionTitle } from './components/SectionTitle';
+import { BenefitCard } from './components/BenefitCard';
+import { ProblemItem } from './components/ProblemItem';
+import { BonusCard } from './components/BonusCard';
+import { TestimonialCard } from './components/TestimonialCard';
+import { MaterialsShowcase } from './components/MaterialsShowcase';
 
 const COLORS = {
   orange: '#FF5A1F',
@@ -41,15 +42,7 @@ const COLORS = {
 };
 
 export default function App() {
-  const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes countdown
   const [showUpsellModal, setShowUpsellModal] = useState(false);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     // Show upsell modal when user tries to leave (exit intent)
@@ -63,12 +56,6 @@ export default function App() {
     return () => window.removeEventListener('mouseleave', handleMouseLeave);
   }, []);
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
   const scrollToPlans = () => {
     document.getElementById('planos')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -76,22 +63,15 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-orange-100 selection:text-orange-900">
       {/* Upsell Modal */}
-      <AnimatePresence>
-        {showUpsellModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
-              className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
-            />
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl border-4 border-[#FF5A1F]"
-            >
+      {showUpsellModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-opacity duration-300">
+          <div 
+            onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
+            className="absolute inset-0 bg-slate-900/90"
+          />
+          <div 
+            className="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl border-4 border-[#FF5A1F] transform transition-all duration-300 scale-100 opacity-100"
+          >
               {/* Top Badge */}
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-700 text-white px-6 py-2 rounded-full text-xs font-black tracking-wider uppercase flex items-center gap-2 shadow-lg whitespace-nowrap z-10">
                 ⭐ OFERTA EXCLUSIVA DE SAÍDA
@@ -160,11 +140,11 @@ export default function App() {
 
                 <a 
                   href="https://pay.wiapy.com/wVVy1eaE8Q"
-                  className="w-full py-5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-xl shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
+                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-lg shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
                   <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
-                  <span className="text-2xl relative z-10 animate-bounce-slow">🔥</span>
+                  <span className="text-xl relative z-10 animate-bounce-slow">🔥</span>
                 </a>
                 
                 <p className="text-center text-slate-600 text-xs font-bold mb-6 flex items-center justify-center gap-2">
@@ -182,15 +162,12 @@ export default function App() {
                   Não, obrigado. Quero apenas o plano simples.
                 </a>
               </div>
-            </motion.div>
+            </div>
           </div>
         )}
-      </AnimatePresence>
 
       {/* Top Bar */}
-      <div className="bg-orange-700 text-white py-2 px-4 text-center text-sm font-bold tracking-wide">
-        OFERTA POR TEMPO LIMITADO: {formatTime(timeLeft)} RESTANTES
-      </div>
+      <TopBar />
 
       {/* Hero Section */}
       <header className="relative pt-8 pb-16 overflow-hidden">
@@ -211,9 +188,7 @@ export default function App() {
               {" "}Atividades Prontas para <span className="text-[#FF5A1F]">Transformar</span> sua Sala em Minutos
             </h1>
 
-      <Suspense fallback={<div className="py-24 text-center">Carregando...</div>}>
-        <VSLPlayer />
-      </Suspense>
+            <VSLPlayer />
 
             <p className="text-lg md:text-2xl text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto font-medium px-4">
               Menos planejamento. Mais controle e atenção na sua sala.
@@ -244,13 +219,13 @@ export default function App() {
             </div>
 
             <div className="mt-8 max-w-[180px] mx-auto relative group">
-              {/* Soft orange glow behind the mockup */}
-              <div className="absolute inset-0 bg-orange-400/20 rounded-full blur-[80px] -z-10 transform scale-110" />
+              {/* Soft orange glow behind the mockup - simplified for performance */}
+              <div className="absolute inset-0 bg-orange-100 rounded-full -z-10 transform scale-110" />
               
               <img 
                 src="https://i.imgur.com/YOAt61G.png" 
                 alt="Mockup principal do Kit Educar Lúdico" 
-                className="w-full h-auto drop-shadow-[0_25px_25px_rgba(0,0,0,0.15)] relative z-10"
+                className="w-full h-auto shadow-xl rounded-lg relative z-10"
                 referrerPolicy="no-referrer"
                 width="180"
                 height="250"
@@ -261,14 +236,14 @@ export default function App() {
 
             {/* Minimalist Info Cards */}
             <div className="mt-12 grid grid-cols-2 gap-4 max-w-sm mx-auto">
-              <div className="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
+              <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
                 <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mb-3">
                   <BookOpen className="w-5 h-5 text-orange-700" />
                 </div>
                 <h4 className="text-sm font-black text-slate-900 leading-tight mb-1">Material completo em PDF</h4>
                 <p className="text-[10px] text-slate-600 leading-tight">Mais de 180 páginas de conteúdo prático</p>
               </div>
-              <div className="bg-white/80 backdrop-blur-sm p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
+              <div className="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center text-center">
                 <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center mb-3">
                   <Download className="w-5 h-5 text-orange-700" />
                 </div>
@@ -281,8 +256,7 @@ export default function App() {
       </header>
 
       {/* Benefits Section */}
-      <Suspense fallback={<div className="py-24 text-center">Carregando benefícios...</div>}>
-        <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionTitle>Por que este é o material que você precisa?</SectionTitle>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -309,16 +283,12 @@ export default function App() {
             </div>
           </div>
         </section>
-      </Suspense>
 
       {/* Materials Showcase Section */}
-      <Suspense fallback={<div className="py-24 text-center">Carregando materiais...</div>}>
-        <MaterialsShowcase />
-      </Suspense>
+      <MaterialsShowcase />
 
       {/* Bonuses Section */}
-      <Suspense fallback={<div className="py-24 text-center">Carregando bônus...</div>}>
-        <section className="py-24 bg-orange-50">
+      <section className="py-24 bg-orange-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <span className="text-orange-700 font-bold tracking-widest uppercase text-sm">Presentes Exclusivos</span>
@@ -337,10 +307,8 @@ export default function App() {
             </div>
           </div>
         </section>
-      </Suspense>
 
-      <Suspense fallback={<div className="py-24 text-center">Carregando planos...</div>}>
-        <section id="planos" className="py-24">
+      <section id="planos" className="py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionTitle>Escolha o Melhor Plano para Você</SectionTitle>
             
@@ -352,29 +320,14 @@ export default function App() {
                     <span className="text-xl">⏰</span>
                     OFERTA ENCERRA EM BREVE
                   </div>
-                  <div className="flex justify-center items-center gap-2 md:gap-4">
-                    <div className="bg-orange-700/50 backdrop-blur-sm rounded-2xl p-3 md:p-4 w-20 md:w-24 flex flex-col items-center justify-center border border-orange-400/30 shadow-inner">
-                      <span className="text-4xl md:text-5xl font-black text-white tracking-tighter" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>00</span>
-                      <span className="text-[10px] md:text-xs font-bold text-orange-200 mt-1 uppercase tracking-wider">Horas</span>
-                    </div>
-                    <div className="text-3xl md:text-4xl font-black text-white/80 animate-pulse">:</div>
-                    <div className="bg-orange-700/50 backdrop-blur-sm rounded-2xl p-3 md:p-4 w-20 md:w-24 flex flex-col items-center justify-center border border-orange-400/30 shadow-inner">
-                      <span className="text-4xl md:text-5xl font-black text-white tracking-tighter" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>{Math.floor(timeLeft / 60).toString().padStart(2, '0')}</span>
-                      <span className="text-[10px] md:text-xs font-bold text-orange-200 mt-1 uppercase tracking-wider">Min</span>
-                    </div>
-                    <div className="text-3xl md:text-4xl font-black text-white/80 animate-pulse">:</div>
-                    <div className="bg-orange-700/50 backdrop-blur-sm rounded-2xl p-3 md:p-4 w-20 md:w-24 flex flex-col items-center justify-center border border-orange-400/30 shadow-inner">
-                      <span className="text-4xl md:text-5xl font-black text-white tracking-tighter" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.2)' }}>{(timeLeft % 60).toString().padStart(2, '0')}</span>
-                      <span className="text-[10px] md:text-xs font-bold text-orange-200 mt-1 uppercase tracking-wider">Seg</span>
-                    </div>
-                  </div>
+                  <PricingCountdown />
                 </div>
               </div>
             </div>
 
             <div className="flex justify-center items-center max-w-lg mx-auto">
               {/* Premium Plan (Featured - Redesigned) */}
-              <div className="bg-white p-1 rounded-[2.5rem] border-[6px] border-[#FF5A1F] relative z-20 flex flex-col h-full shadow-[0_30px_60px_-12px_rgba(255,90,31,0.3)] w-full">
+              <div className="bg-white p-1 rounded-[2.5rem] border-[6px] border-[#FF5A1F] relative z-20 flex flex-col h-full shadow-xl w-full">
                 {/* Header Badge */}
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-blue-700 text-white px-8 py-2 rounded-full text-xs font-black tracking-widest uppercase flex items-center gap-2 shadow-lg whitespace-nowrap">
                   <Star className="w-3 h-3 fill-white" />
@@ -437,11 +390,11 @@ export default function App() {
 
                   <a 
                     href="https://pay.wiapy.com/wVVy1eaE8Q"
-                    className="w-full py-6 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-2xl shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
+                    className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-xl shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
                     <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
-                    <span className="text-3xl relative z-10 animate-bounce-slow">🔥</span>
+                    <span className="text-2xl relative z-10 animate-bounce-slow">🔥</span>
                   </a>
 
                   <p className="text-center text-slate-600 text-sm font-bold flex items-center justify-center gap-2 mb-6">
@@ -453,10 +406,9 @@ export default function App() {
             </div>
           </div>
         </section>
-      </Suspense>
 
-      <Suspense fallback={<div className="py-24 text-center">Carregando depoimentos...</div>}>
-        <section className="py-24 bg-slate-50">
+      {/* Testimonials Section */}
+      <section className="py-24 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionTitle>Quem usa, aprova!</SectionTitle>
             <div className="grid md:grid-cols-3 gap-8">
@@ -481,15 +433,14 @@ export default function App() {
             </div>
           </div>
         </section>
-      </Suspense>
 
       {/* Guarantee Section */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-6xl mx-auto px-4">
           <div className="relative">
             {/* Background Decorative Elements */}
-            <div className="absolute -left-20 -top-20 w-64 h-64 bg-blue-500/5 rounded-full blur-2xl md:blur-3xl pointer-events-none" />
-            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-orange-500/5 rounded-full blur-2xl md:blur-3xl pointer-events-none" />
+            <div className="absolute -left-20 -top-20 w-64 h-64 bg-blue-500/5 rounded-full pointer-events-none" />
+            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-orange-500/5 rounded-full pointer-events-none" />
 
             <div className="bg-white rounded-[4rem] p-10 md:p-20 border border-slate-100 relative z-10 text-center max-w-4xl mx-auto shadow-[0_32px_64px_-15px_rgba(255,90,31,0.25)]">
               <div className="flex justify-center mb-8">
