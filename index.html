@@ -15,7 +15,11 @@
     <link rel="preconnect" href="https://i.imgur.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://i.imgur.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap">
+    </noscript>
     <link rel="preload" as="image" href="https://i.imgur.com/YOAt61G.webp" fetchpriority="high" />
     <script>
       window.pixelId = "69be01d6fad6589b5092a1af";
@@ -58,12 +62,22 @@
           width: 100%;
           max-width: 384px;
           aspect-ratio: 9/16;
-          background: #0f172a url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
-          background-size: cover;
+          background: #0f172a;
           border-radius: 2rem;
           margin-bottom: 2rem;
           border: 4px solid white;
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+          position: relative;
+          overflow: hidden;
+        }
+        .skeleton-video img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0.6;
         }
         @media (min-width: 768px) {
           .skeleton-video { max-width: 576px; }
@@ -74,7 +88,9 @@
       <div class="skeleton-hero">
         <div class="skeleton-badge"></div>
         <div class="skeleton-title"></div>
-        <div class="skeleton-video"></div>
+        <div class="skeleton-video">
+          <img src="https://i.imgur.com/YOAt61G.webp" alt="Carregando vídeo..." fetchpriority="high" />
+        </div>
       </div>
     </div>
     <script type="module" src="/src/main.tsx"></script>
