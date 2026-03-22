@@ -1,4 +1,4 @@
-import { memo, useState, lazy, Suspense, useEffect } from 'react';
+import { memo, useState, lazy, Suspense } from 'react';
 import { Play } from 'lucide-react';
 
 // Lazy load the actual video player component
@@ -6,23 +6,6 @@ const RealVSLPlayer = lazy(() => import('./RealVSLPlayer').then(m => ({ default:
 
 export const VSLPlayer = memo(() => {
   const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    // Implementação de Lazy Loading: aguarda o carregamento completo da página
-    const handleLoad = () => {
-      // Pequeno atraso (1.5s) para garantir que a thread principal esteja livre e o TBT seja zero
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 1500);
-    };
-
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
-      return () => window.removeEventListener('load', handleLoad);
-    }
-  }, []);
 
   if (!isLoaded) {
     return (
@@ -37,7 +20,6 @@ export const VSLPlayer = memo(() => {
           className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-300"
           loading="eager"
           fetchPriority="high"
-          decoding="async"
           width="600"
           height="1066"
         />
