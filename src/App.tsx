@@ -143,10 +143,10 @@ export default function App() {
 
                 <a 
                   href="https://pay.wiapy.com/wVVy1eaE8Q"
-                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-lg shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
+                  className="w-full py-2.5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-base shadow-[0_15px_30px_-10px_rgba(30,215,96,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(30,215,96,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
-                  <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
+                  <span className="relative z-10">QUERO MEU PLANO</span>
                   <span className="text-xl relative z-10 animate-bounce-slow">🔥</span>
                 </a>
                 
@@ -173,18 +173,13 @@ export default function App() {
       <TopBar />
 
       {/* Hero Section */}
-      <header className="relative pt-8 pb-16 overflow-hidden">
+      <header className="relative pt-12 pb-24 overflow-hidden">
         {/* Simplified background for performance */}
         <div className="absolute inset-0 -z-10 bg-slate-50" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div>
-            <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-4 py-1 rounded-full text-sm font-bold mb-6 border border-orange-100">
-              <Zap className="w-4 h-4 fill-current" />
-              ACESSO IMEDIATO AO MATERIAL
-            </div>
-            
-            <h1 className="text-3xl md:text-6xl font-black text-[#0F172A] leading-tight mb-6 tracking-tight px-2">
+            <h1 className="text-4xl md:text-7xl font-black text-[#0F172A] leading-[1.1] mb-8 tracking-tighter px-2">
               <span className="relative inline-block">
                 <span className="relative z-10 text-[#FF5A1F]">+3000</span>
               </span>
@@ -193,7 +188,7 @@ export default function App() {
 
             <VSLPlayer />
 
-            <p className="text-lg md:text-2xl text-slate-600 mb-8 leading-relaxed max-w-3xl mx-auto font-medium px-4">
+            <p className="text-xl md:text-3xl text-slate-600 mb-12 leading-relaxed max-w-3xl mx-auto font-medium px-4">
               Menos planejamento. Mais controle e atenção na sua sala.
             </p>
             
@@ -203,7 +198,7 @@ export default function App() {
                 tabIndex={0}
                 onClick={(e) => { e.stopPropagation(); scrollToPlans(); }}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToPlans(); } }}
-                className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-lg font-black px-8 py-4 rounded-2xl shadow-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer"
+                className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-base font-black px-6 py-3 rounded-2xl shadow-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer"
               >
                 <span className="relative z-10">QUERO ACESSAR AGORA</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -404,10 +399,10 @@ export default function App() {
 
                   <a 
                     href="https://pay.wiapy.com/wVVy1eaE8Q"
-                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-lg shadow-[0_20px_40px_-10px_rgba(30,215,96,0.5)] hover:shadow-[0_25px_50px_-12px_rgba(30,215,96,0.6)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group mb-4 relative overflow-hidden"
+                    className="w-full py-2.5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-base shadow-[0_15px_30px_-10px_rgba(30,215,96,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(30,215,96,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group mb-4 relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
-                    <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
+                    <span className="relative z-10">QUERO MEU PLANO</span>
                     <span className="text-xl relative z-10 animate-bounce-slow">🔥</span>
                   </a>
 
@@ -497,10 +492,10 @@ export default function App() {
           </p>
           <a 
             href="https://pay.wiapy.com/wVVy1eaE8Q"
-            className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xl font-black px-12 py-6 rounded-2xl shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-12px_rgba(37,99,235,0.5)] transition-all transform hover:scale-[1.02] mb-4 inline-flex items-center justify-center gap-3 group relative overflow-hidden"
+            className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-base font-black px-6 py-3 rounded-2xl shadow-[0_15px_30px_-10px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(37,99,235,0.4)] transition-all transform hover:scale-[1.02] mb-4 inline-flex items-center justify-center gap-3 group relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
-            <span className="relative z-10">QUERO MEU ACESSO AGORA</span>
+            <span className="relative z-10">QUERO MEU PLANO</span>
             <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform relative z-10" />
           </a>
           <p className="text-slate-300 text-sm font-bold mb-8 flex items-center justify-center gap-2">
