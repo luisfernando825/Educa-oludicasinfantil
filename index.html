@@ -10,34 +10,60 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Load fonts blocking to prevent FOUT and layout shifts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Preload LCP image (AVIF preferred, fallback WebP) -->
+    <link rel="preload" as="image" href="https://i.imgur.com/VKCgs8s.avif" type="image/avif" fetchpriority="high" />
+    <link rel="preload" as="image" href="https://i.imgur.com/VKCgs8s.webp" type="image/webp" fetchpriority="high" />
     
-    <!-- Preload LCP image -->
-    <link rel="preload" as="image" href="https://i.imgur.com/YOAt61G.webp" fetchpriority="high" />
-    
-    <script>
-      window.pixelId = "69be01d6fad6589b5092a1af";
-      // Atraso de 3500ms para scripts de terceiros (Pixel, Analytics, etc) para zerar o TBT
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          var a = document.createElement("script");
-          a.setAttribute("async", "");
-          a.setAttribute("defer", "");
-          a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-          document.head.appendChild(a);
-        }, 3500);
-      });
-    </script>
-    <style>
-      body { margin: 0; background: #f8fafc; font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; }
+    <!-- CSS Crítico Inline -->
+    <style id="critical-path-css">
+      /* System fonts for initial load to prevent FOUT/blocking */
+      body { margin: 0; background: #f8fafc; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
       .sk-h1 { font-size: 1.875rem; line-height: 1.25; font-weight: 900; color: #0F172A; margin: 0 0 1.5rem 0; letter-spacing: -0.025em; padding: 0 0.5rem; }
       .sk-vid { max-width: 24rem; }
       @media (min-width: 768px) {
         .sk-h1 { font-size: 3.75rem; line-height: 1; }
         .sk-vid { max-width: 36rem; }
       }
+      /* Class added when Poppins loads */
+      body.fonts-loaded { font-family: 'Poppins', sans-serif; }
     </style>
+
+    <!-- Delay Execution: 5s or First Interaction -->
+    <script>
+      window.pixelId = "69be01d6fad6589b5092a1af";
+      
+      let thirdPartyLoaded = false;
+      function loadThirdParty() {
+        if (thirdPartyLoaded) return;
+        thirdPartyLoaded = true;
+        
+        // 1. Load Google Fonts asynchronously
+        var fontLink = document.createElement('link');
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap';
+        fontLink.rel = 'stylesheet';
+        fontLink.onload = function() { document.body.classList.add('fonts-loaded'); };
+        document.head.appendChild(fontLink);
+
+        // 2. Load Tracking Pixels
+        var utm = document.createElement("script");
+        utm.async = true;
+        utm.defer = true;
+        utm.src = "https://cdn.utmify.com.br/scripts/pixel/pixel.js";
+        document.head.appendChild(utm);
+      }
+
+      // Listen for user interaction
+      const interactionEvents = ['touchstart', 'mouseover', 'wheel', 'scroll', 'keydown'];
+      function onInteraction() {
+        loadThirdParty();
+        interactionEvents.forEach(e => window.removeEventListener(e, onInteraction));
+      }
+      
+      interactionEvents.forEach(e => window.addEventListener(e, onInteraction, { passive: true, once: true }));
+      
+      // Fallback to 5 seconds if no interaction
+      setTimeout(loadThirdParty, 5000);
+    </script>
   </head>
   <body>
     <div id="root">
@@ -56,7 +82,11 @@
           </h1>
 
           <div class="sk-vid" style="position: relative; width: 100%; margin: 0 auto 2rem auto; border-radius: 2rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; border: 4px solid #fff; background-color: #0f172a; aspect-ratio: 9/16; display: flex; align-items: center; justify-content: center;">
-            <img src="https://i.imgur.com/YOAt61G.webp" alt="Carregando vídeo..." style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" fetchpriority="high" decoding="async" />
+            <picture style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+              <source type="image/avif" srcset="https://i.imgur.com/VKCgs8s.avif" />
+              <source type="image/webp" srcset="https://i.imgur.com/VKCgs8s.webp" />
+              <img src="https://i.imgur.com/VKCgs8s.webp" alt="Carregando vídeo..." style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" fetchpriority="high" decoding="async" />
+            </picture>
             
             <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
               <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 1rem;">

@@ -226,7 +226,7 @@ export default function App() {
               <div className="absolute inset-0 bg-orange-100 rounded-full -z-10 transform scale-110" />
               
               <img 
-                src="https://i.imgur.com/YOAt61G.webp" 
+                src="https://i.imgur.com/VKCgs8s.webp" 
                 alt="Mockup principal do Kit Educar Lúdico" 
                 className="w-full h-auto shadow-xl rounded-lg relative z-10"
                 referrerPolicy="no-referrer"
