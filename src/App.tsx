@@ -232,8 +232,8 @@ export default function App() {
                 referrerPolicy="no-referrer"
                 width="180"
                 height="250"
-                fetchPriority="high"
-                loading="eager"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
@@ -353,9 +353,10 @@ export default function App() {
                     </div>
                     <div className="flex flex-col items-center justify-center">
                       <span className="text-slate-400 font-bold text-xl line-through decoration-red-500 decoration-2 mb-1">De R$ 67,00</span>
+                      <span className="text-slate-400 font-bold text-3xl line-through decoration-red-500 decoration-2 mb-1">Por R$ 12,90</span>
                       <div className="flex items-start justify-center gap-1">
-                        <span className="text-xl font-bold text-blue-700 mt-2">R$</span>
-                        <span className="text-7xl font-black text-blue-700 tracking-tighter">12,90</span>
+                        <span className="text-xl font-bold text-green-600 mt-2">R$</span>
+                        <span className="text-7xl font-black text-green-600 tracking-tighter">9,90</span>
                       </div>
                     </div>
                   </div>
@@ -437,7 +438,7 @@ export default function App() {
               </div>
               
               <p className="mt-6 text-slate-400 text-xs font-medium tracking-wide text-center">
-                Os R$ 12,90 são apenas para cobrir custos de servidor
+                Os R$ 9,90 são apenas para cobrir custos de servidor
               </p>
             </div>
           </div>

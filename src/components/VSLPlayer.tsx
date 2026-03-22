@@ -20,6 +20,7 @@ export const VSLPlayer = memo(() => {
           className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-300"
           loading="eager"
           fetchPriority="high"
+          decoding="async"
           width="600"
           height="1066"
         />
