@@ -141,7 +141,6 @@ export default function App() {
                 </div>
 
                 <a 
-                  onClick={(e) => e.stopPropagation()}
                   href="https://pay.wiapy.com/wVVy1eaE8Q"
                   className="w-full py-2.5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-base shadow-[0_15px_30px_-10px_rgba(30,215,96,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(30,215,96,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
                 >
@@ -274,19 +273,20 @@ export default function App() {
               </h2>
             </div>
 
-            <div className="max-w-3xl mx-auto">
-              <div className="bg-white p-8 md:p-12 rounded-[3rem] border-2 border-dashed border-orange-300 shadow-2xl relative overflow-hidden">
-                <div className="w-full mb-10 flex items-center justify-center">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white rounded-[3rem] border-2 border-dashed border-orange-300 shadow-2xl relative overflow-hidden">
+                <div className="w-full bg-white">
                   <img 
-                    src="https://i.imgur.com/T3NOT65.webp" 
+                    src="https://i.imgur.com/lCiJbeU.webp" 
                     alt="Mockup dos Bônus" 
-                    className="w-full max-w-2xl h-auto object-contain drop-shadow-2xl scale-110"
+                    className="w-full h-auto block drop-shadow-2xl"
                     referrerPolicy="no-referrer"
                     loading="lazy"
                   />
                 </div>
                 
-                <h3 className="text-2xl md:text-3xl font-black text-center text-[#FF5A1F] uppercase mb-8 leading-tight">
+                <div className="p-8 md:p-12 pt-4 md:pt-4">
+                  <h3 className="text-2xl md:text-3xl font-black text-center text-[#FF5A1F] uppercase mb-8 leading-tight">
                   6 BÔNUS EXCLUSIVOS<br />
                   <span className="text-slate-900">PARA VOCÊ</span>
                 </h3>
@@ -337,7 +337,8 @@ export default function App() {
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
       </Suspense>
 
       <Suspense fallback={<div className="py-24 text-center">Carregando planos...</div>}>
@@ -426,7 +427,6 @@ export default function App() {
                   </div>
 
                   <a 
-                    onClick={(e) => e.stopPropagation()}
                     href="https://pay.wiapy.com/wVVy1eaE8Q"
                     className="w-full py-2.5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-base shadow-[0_15px_30px_-10px_rgba(30,215,96,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(30,215,96,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group mb-4 relative overflow-hidden"
                   >
@@ -520,7 +520,6 @@ export default function App() {
             Não deixe para amanhã a tranquilidade e o engajamento que você pode ter agora.
           </p>
           <a 
-            onClick={(e) => e.stopPropagation()}
             href="https://pay.wiapy.com/wVVy1eaE8Q"
             className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-base font-black px-6 py-3 rounded-2xl shadow-[0_15px_30px_-10px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(37,99,235,0.4)] transition-all transform hover:scale-[1.02] mb-4 inline-flex items-center justify-center gap-3 group relative overflow-hidden"
           >

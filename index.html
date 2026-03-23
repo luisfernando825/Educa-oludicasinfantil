@@ -54,6 +54,7 @@
     <!-- Delay Execution: 5s or First Interaction -->
     <script>
       window.pixelId = "69be01d6fad6589b5092a1af";
+      window.pixel_id = window.pixelId; // Fallback for some tracking script versions
       
       let thirdPartyLoaded = false;
       function loadThirdParty() {
