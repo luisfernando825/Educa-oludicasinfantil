@@ -275,7 +275,7 @@ export default function App() {
               </h2>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-3xl mx-auto">
               <BonusCard number={1} title="+100 Ideias Criativas" originalPrice="R$ 47,00" image="https://i.imgur.com/a5vYGx9.webp" />
               <BonusCard number={2} title="+80 Dinâmicas sem Material" originalPrice="R$ 39,00" image="https://i.imgur.com/TlTATSL.webp" />
               <BonusCard number={3} title="+30 Rotinas Prontas" originalPrice="R$ 29,00" image="https://i.imgur.com/KAEttqc.webp" />
