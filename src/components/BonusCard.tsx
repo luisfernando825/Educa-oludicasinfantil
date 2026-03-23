@@ -6,15 +6,15 @@ export const BonusCard = memo(({ number, title, originalPrice, image }: { number
       Grátis Hoje
     </div>
     
-    <div className="w-full aspect-square mb-4 flex items-center justify-center bg-slate-50 rounded-lg overflow-hidden relative">
+    <div className="w-full aspect-square mb-4 flex items-center justify-center bg-slate-50 rounded-lg overflow-hidden relative p-4">
       <img 
         src={image} 
         alt={`Mockup do Kit Educar Lúdico - ${title}`} 
-        className="w-full h-full object-contain"
+        className="w-full h-full object-contain drop-shadow-md"
         referrerPolicy="no-referrer"
         loading="lazy"
-        width="300"
-        height="300"
+        width="192"
+        height="192"
       />
       <div className="absolute top-2 left-2 text-orange-800/20 font-black text-xl opacity-20">#{number}</div>
     </div>

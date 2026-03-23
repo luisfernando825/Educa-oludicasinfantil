@@ -40,7 +40,7 @@ export function TestimonialCarousel() {
         role="button"
         tabIndex={0}
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); prev(); }} 
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); prev(); } }}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); prev(); } }}
         className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 bg-white p-3 rounded-full shadow-xl z-20 text-slate-800 hover:text-[#FF5A1F] hover:scale-110 transition-all cursor-pointer"
         aria-label="Anterior"
       >
@@ -51,7 +51,7 @@ export function TestimonialCarousel() {
         role="button"
         tabIndex={0}
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); next(); }} 
-        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); next(); } }}
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); next(); } }}
         className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 bg-white p-3 rounded-full shadow-xl z-20 text-slate-800 hover:text-[#FF5A1F] hover:scale-110 transition-all cursor-pointer"
         aria-label="Próximo"
       >
@@ -65,7 +65,7 @@ export function TestimonialCarousel() {
             role="button"
             tabIndex={0}
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentIndex(index); }}
-            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentIndex(index); } }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setCurrentIndex(index); } }}
             className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${index === currentIndex ? 'bg-[#FF5A1F] scale-125' : 'bg-slate-300 hover:bg-slate-400'}`}
             aria-label={`Ir para depoimento ${index + 1}`}
           />

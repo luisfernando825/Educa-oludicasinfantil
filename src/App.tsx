@@ -31,11 +31,11 @@ import { SectionTitle } from './components/SectionTitle';
 
 // Lazy load below-the-fold components
 import { lazy, Suspense } from 'react';
-const BenefitCard = lazy(() => import('./components/BenefitCard').then(m => ({ default: m.BenefitCard })));
 const ProblemItem = lazy(() => import('./components/ProblemItem').then(m => ({ default: m.ProblemItem })));
 const BonusCard = lazy(() => import('./components/BonusCard').then(m => ({ default: m.BonusCard })));
 const TestimonialCarousel = lazy(() => import('./components/TestimonialCarousel').then(m => ({ default: m.TestimonialCarousel })));
 const MaterialsShowcase = lazy(() => import('./components/MaterialsShowcase').then(m => ({ default: m.MaterialsShowcase })));
+const DevelopmentSlider = lazy(() => import('./components/DevelopmentSlider').then(m => ({ default: m.DevelopmentSlider })));
 
 const COLORS = {
   orange: '#FF5A1F',
@@ -85,7 +85,7 @@ export default function App() {
                 role="button"
                 tabIndex={0}
                 onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowUpsellModal(false); } }}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setShowUpsellModal(false); } }}
                 className="absolute top-4 right-6 text-slate-500 hover:text-slate-700 transition-colors z-10 cursor-pointer"
                 aria-label="Fechar"
               >
@@ -142,6 +142,7 @@ export default function App() {
                 </div>
 
                 <a 
+                  onClick={(e) => e.stopPropagation()}
                   href="https://pay.wiapy.com/wVVy1eaE8Q"
                   className="w-full py-2.5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-base shadow-[0_15px_30px_-10px_rgba(30,215,96,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(30,215,96,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3 group mb-4 relative overflow-hidden"
                 >
@@ -159,7 +160,7 @@ export default function App() {
                   role="button"
                   tabIndex={0}
                   onClick={(e) => { e.stopPropagation(); setShowUpsellModal(false); }}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setShowUpsellModal(false); } }}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setShowUpsellModal(false); } }}
                   className="text-slate-600 text-xs font-bold hover:text-slate-800 transition-colors underline decoration-2 underline-offset-4 cursor-pointer"
                 >
                   Não, obrigado. Quero apenas o plano simples.
@@ -197,7 +198,7 @@ export default function App() {
                 role="button"
                 tabIndex={0}
                 onClick={(e) => { e.stopPropagation(); scrollToPlans(); }}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToPlans(); } }}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); scrollToPlans(); } }}
                 className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-base font-black px-6 py-3 rounded-2xl shadow-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 group w-full sm:w-auto cursor-pointer"
               >
                 <span className="relative z-10">QUERO ACESSAR AGORA</span>
@@ -255,33 +256,7 @@ export default function App() {
 
       {/* Benefits Section */}
       <Suspense fallback={<div className="py-24 text-center">Carregando benefícios...</div>}>
-        <section className="py-24 bg-slate-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <SectionTitle>Por que este é o material que você precisa?</SectionTitle>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <BenefitCard 
-                icon={Clock}
-                title="Economia de Tempo"
-                description="Nunca mais perca horas no Pinterest procurando atividades que talvez não funcionem."
-              />
-              <BenefitCard 
-                icon={Users}
-                title="Turma Engajada"
-                description="Transforme a bagunça em aprendizado com dinâmicas que capturam a atenção."
-              />
-              <BenefitCard 
-                icon={Smile}
-                title="Menos Estresse"
-                description="Tenha sempre uma 'carta na manga' para momentos de agitação ou transição."
-              />
-              <BenefitCard 
-                icon={Zap}
-                title="Sem Materiais Caros"
-                description="90% das dinâmicas usam apenas o corpo, voz ou materiais simples que você já tem."
-              />
-            </div>
-          </div>
-        </section>
+        <DevelopmentSlider />
       </Suspense>
 
       {/* Materials Showcase Section */}
@@ -300,13 +275,13 @@ export default function App() {
               </h2>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <BonusCard number={1} title="+100 Ideias Criativas" originalPrice="R$ 47,00" image="https://i.imgur.com/i5VfQO8.webp" />
-              <BonusCard number={2} title="+80 Dinâmicas sem Material" originalPrice="R$ 39,00" image="https://i.imgur.com/soE8VT9.webp" />
-              <BonusCard number={3} title="+30 Rotinas Prontas" originalPrice="R$ 29,00" image="https://i.imgur.com/2gucGh7.webp" />
-              <BonusCard number={4} title="+25 Atividades para Acalmar" originalPrice="R$ 35,00" image="https://i.imgur.com/qnjelbC.webp" />
-              <BonusCard number={5} title="Guia Controle de Turma" originalPrice="R$ 49,00" image="https://i.imgur.com/rY66jQ6.webp" />
-              <BonusCard number={6} title="Plano Semanal Pronto" originalPrice="R$ 57,00" image="https://i.imgur.com/1oqQ1A2.webp" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <BonusCard number={1} title="+100 Ideias Criativas" originalPrice="R$ 47,00" image="https://i.imgur.com/a5vYGx9.webp" />
+              <BonusCard number={2} title="+80 Dinâmicas sem Material" originalPrice="R$ 39,00" image="https://i.imgur.com/TlTATSL.webp" />
+              <BonusCard number={3} title="+30 Rotinas Prontas" originalPrice="R$ 29,00" image="https://i.imgur.com/KAEttqc.webp" />
+              <BonusCard number={4} title="+25 Atividades para Acalmar" originalPrice="R$ 35,00" image="https://i.imgur.com/mH5oDGs.webp" />
+              <BonusCard number={5} title="Guia Controle de Turma" originalPrice="R$ 49,00" image="https://i.imgur.com/M4y9Hw4.webp" />
+              <BonusCard number={6} title="Plano Semanal Pronto" originalPrice="R$ 57,00" image="https://i.imgur.com/m4eSsLK.webp" />
             </div>
           </div>
         </section>
@@ -398,6 +373,7 @@ export default function App() {
                   </div>
 
                   <a 
+                    onClick={(e) => e.stopPropagation()}
                     href="https://pay.wiapy.com/wVVy1eaE8Q"
                     className="w-full py-2.5 rounded-2xl bg-gradient-to-r from-[#1ED760] to-[#19C356] text-white font-black text-base shadow-[0_15px_30px_-10px_rgba(30,215,96,0.4)] hover:shadow-[0_20px_40px_-12px_rgba(30,215,96,0.5)] transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group mb-4 relative overflow-hidden"
                   >
@@ -491,6 +467,7 @@ export default function App() {
             Não deixe para amanhã a tranquilidade e o engajamento que você pode ter agora.
           </p>
           <a 
+            onClick={(e) => e.stopPropagation()}
             href="https://pay.wiapy.com/wVVy1eaE8Q"
             className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-base font-black px-6 py-3 rounded-2xl shadow-[0_15px_30px_-10px_rgba(37,99,235,0.3)] hover:shadow-[0_20px_40px_-12px_rgba(37,99,235,0.4)] transition-all transform hover:scale-[1.02] mb-4 inline-flex items-center justify-center gap-3 group relative overflow-hidden"
           >
