@@ -32,7 +32,6 @@ import { SectionTitle } from './components/SectionTitle';
 // Lazy load below-the-fold components
 import { lazy, Suspense } from 'react';
 const ProblemItem = lazy(() => import('./components/ProblemItem').then(m => ({ default: m.ProblemItem })));
-const BonusCard = lazy(() => import('./components/BonusCard').then(m => ({ default: m.BonusCard })));
 const TestimonialCarousel = lazy(() => import('./components/TestimonialCarousel').then(m => ({ default: m.TestimonialCarousel })));
 const MaterialsShowcase = lazy(() => import('./components/MaterialsShowcase').then(m => ({ default: m.MaterialsShowcase })));
 const DevelopmentSlider = lazy(() => import('./components/DevelopmentSlider').then(m => ({ default: m.DevelopmentSlider })));
@@ -266,7 +265,7 @@ export default function App() {
 
       {/* Bonuses Section */}
       <Suspense fallback={<div className="py-24 text-center">Carregando bônus...</div>}>
-        <section className="py-24 bg-orange-50">
+        <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <span className="text-orange-700 font-bold tracking-widest uppercase text-sm">Presentes Exclusivos</span>
@@ -275,13 +274,67 @@ export default function App() {
               </h2>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-3xl mx-auto">
-              <BonusCard number={1} title="+100 Ideias Criativas" originalPrice="R$ 47,00" image="https://i.imgur.com/a5vYGx9.webp" />
-              <BonusCard number={2} title="+80 Dinâmicas sem Material" originalPrice="R$ 39,00" image="https://i.imgur.com/TlTATSL.webp" />
-              <BonusCard number={3} title="+30 Rotinas Prontas" originalPrice="R$ 29,00" image="https://i.imgur.com/KAEttqc.webp" />
-              <BonusCard number={4} title="+25 Atividades para Acalmar" originalPrice="R$ 35,00" image="https://i.imgur.com/mH5oDGs.webp" />
-              <BonusCard number={5} title="Guia Controle de Turma" originalPrice="R$ 49,00" image="https://i.imgur.com/M4y9Hw4.webp" />
-              <BonusCard number={6} title="Plano Semanal Pronto" originalPrice="R$ 57,00" image="https://i.imgur.com/m4eSsLK.webp" />
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-white p-8 md:p-12 rounded-[3rem] border-2 border-dashed border-orange-300 shadow-2xl relative overflow-hidden">
+                <div className="w-full mb-10 flex items-center justify-center">
+                  <img 
+                    src="https://i.imgur.com/T3NOT65.webp" 
+                    alt="Mockup dos Bônus" 
+                    className="w-full max-w-2xl h-auto object-contain drop-shadow-2xl scale-110"
+                    referrerPolicy="no-referrer"
+                    loading="lazy"
+                  />
+                </div>
+                
+                <h3 className="text-2xl md:text-3xl font-black text-center text-[#FF5A1F] uppercase mb-8 leading-tight">
+                  6 BÔNUS EXCLUSIVOS<br />
+                  <span className="text-slate-900">PARA VOCÊ</span>
+                </h3>
+                
+                <ul className="space-y-4 text-slate-700 text-lg md:text-xl font-medium mb-8">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-green-500 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>+100 ideias criativas</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-green-500 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>+80 dinâmicas sem material</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-green-500 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>+25 atividades pós-recreio</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-green-500 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Guia controle de turma</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-green-500 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Certificado de aluno do mês</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-green-500 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Atividades para desenvolvimentos de alunos mais lentos</span>
+                  </li>
+                </ul>
+
+                <div className="pt-6 border-t border-slate-100 text-center">
+                  <p className="text-slate-500 text-lg line-through decoration-red-500 decoration-2">De R$ 47,90</p>
+                  <p className="text-green-600 font-black text-4xl mt-1">POR R$ 0,00</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -357,12 +410,12 @@ export default function App() {
                     </div>
                     <ul className="space-y-3 mt-2">
                       {[
-                        "+100 Ideias Criativas",
-                        "+80 Dinâmicas sem Material",
-                        "+30 Rotinas Prontas",
-                        "+25 Atividades para Acalmar",
-                        "Guia Controle de Turma",
-                        "Plano Semanal Pronto"
+                        "+100 ideias criativas",
+                        "+80 dinâmicas sem material",
+                        "+25 atividades pós-recreio",
+                        "Guia controle de turma",
+                        "Certificado de aluno do mês",
+                        "Atividades para desenvolvimentos"
                       ].map((bonus, i) => (
                         <li key={i} className="flex items-center gap-3 text-slate-700 text-sm font-bold">
                           <Gift className="w-4 h-4 text-orange-600" />
